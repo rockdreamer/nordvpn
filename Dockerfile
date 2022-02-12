@@ -1,8 +1,9 @@
-FROM s6on/ubuntu:20.04
+FROM ubuntu:20.04
 LABEL maintainer="Julio Gutierrez julio.guti+nordvpn@pm.me"
-
-ARG NORDVPN_VERSION=3.12.3
 ARG DEBIAN_FRONTEND=noninteractive
+ARG NORDVPN_VERSION=3.12.4
+
+COPY get_private_key.sh /usr/bin
 
 RUN apt-get update -y && \
     apt-get install -y curl iputils-ping wireguard && \
@@ -13,12 +14,11 @@ RUN apt-get update -y && \
     apt-get remove -y nordvpn-release && \
     apt-get autoremove -y && \
     apt-get autoclean -y && \
+    chmod +x /usr/bin/get_private_key.sh && \
     rm -rf \
 		/tmp/* \
 		/var/cache/apt/archives/* \
 		/var/lib/apt/lists/* \
 		/var/tmp/*
 
-COPY /rootfs /
-ENV S6_CMD_WAIT_FOR_SERVICES=1
-CMD nord_login && nord_config && nord_connect && nord_migrate && nord_watch
+CMD /usr/bin/get_private_key.sh
