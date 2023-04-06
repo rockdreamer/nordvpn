@@ -10,8 +10,8 @@ fi
 /usr/sbin/nordvpnd > /dev/null &
 sleep 1
 
-nordvpn login --legacy --username "${USER}" --password "${PASS}" || {
-  echo "Invalid Username or password."
+nordvpn login --token "${TOKEN}" || {
+  echo "Invalid token."
   exit 1
 }
 
