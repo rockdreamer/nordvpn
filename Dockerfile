@@ -1,7 +1,8 @@
 FROM ubuntu:20.04
 LABEL maintainer="Julio Gutierrez julio.guti+nordvpn@pm.me"
+
+ARG NORDVPN_VERSION=3.16.1
 ARG DEBIAN_FRONTEND=noninteractive
-ARG NORDVPN_VERSION=3.15.3
 
 COPY get_private_key.sh /usr/bin
 

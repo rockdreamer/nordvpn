@@ -8,10 +8,11 @@ if [[ ! -d /run/nordvpn ]]; then
 fi
 
 /usr/sbin/nordvpnd > /dev/null &
-sleep 1
+echo "Waiting for daemon to start up..."
+sleep 3
 
 nordvpn login --token "${TOKEN}" || {
-  echo "Invalid token."
+  echo "Invalid token. ¯\_(ツ)_/¯"
   exit 1
 }
 
@@ -21,6 +22,7 @@ nordvpn connect
 echo "############################################################"
 echo "IP: $(ip -o addr show dev nordlynx | awk '$3 == "inet" {print $4}')"
 echo "Private Key: $(wg show nordlynx private-key)"
+echo "＼(＾O＾)／"
 echo "############################################################"
 
 exit 0
